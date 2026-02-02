@@ -9,6 +9,14 @@ export function listTodos(req, res){
     res.json({count: listTodos.length, todos});
 }
 
+export function queryTodos(req,res){
+    const id = Number(req.params.id);
+    const todo = todos.find(t => t.id === id);
+
+    if (!todo) return res.status(404).json({error:"todo not found", id});
+    res.json({todo});
+}
+
 export function createTodos(req, res){
     const {task} = req.body;
 
@@ -33,4 +41,14 @@ export function toggleTodo(req, res){
     res.json({message:"Toggled", todo});
 
 
+}
+
+export function deleteTodo(req, res){
+    const id = Number(req.params.id);
+    const todo = todos.find(t => t.id === id);
+
+    if (!todo) return res.status(404).json({error:"todo not found", id});
+    
+    todos.splice(id - 1, 1);
+    res.json({message:"Deleted task: " + id});
 }

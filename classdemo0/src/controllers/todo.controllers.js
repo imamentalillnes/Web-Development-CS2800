@@ -1,9 +1,4 @@
-let nextId = 3;
 
-const todos = [
-    {id:1, task:"Try to have fun with express", done:false},
-    {id:2, task:"Buy eggs", done:false}
-]
 
 export function listTodos(req, res){
     res.json({count: listTodos.length, todos});
@@ -50,5 +45,5 @@ export function deleteTodo(req, res){
     if (!todo) return res.status(404).json({error:"todo not found", id});
     
     todos.splice(id - 1, 1);
-    res.json({message:"Deleted task: " + id});
+    res.json({message:"Deleted task: ", task: todo.task, done: task.done});
 }

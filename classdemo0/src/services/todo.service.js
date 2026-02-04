@@ -42,3 +42,12 @@ export function deleteTodoById(id){
 
     return todos.splice(todoIndex, 1)[0];
 }
+
+export function getTodoById(id){
+    const todoIndex = todos.findIndex(t => t.id === id);
+    if(todoIndex === -1){
+        return null;
+    }
+
+    return todoIndex;
+}

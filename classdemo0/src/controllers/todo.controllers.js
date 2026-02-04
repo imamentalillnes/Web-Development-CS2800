@@ -1,4 +1,4 @@
-import{getAllTodos, createTodos, toggleTodoById, deleteTodoById} from "../services/todo.service.js"
+import{getAllTodos, createTodos, toggleTodoById, deleteTodoById, getTodoById} from "../services/todo.service.js"
 
 export function listTodos(req, res){
     const todos = getAllTodos();
@@ -7,7 +7,7 @@ export function listTodos(req, res){
 
 export function queryTodos(req,res){
     const id = Number(req.params.id);
-    const todo = todos.find(t => t.id === id);
+    const todo = getTodoById();
 
     if (!todo) return res.status(404).json({error:"todo not found", id});
     res.json({todo});

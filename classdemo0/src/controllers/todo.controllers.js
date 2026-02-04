@@ -7,9 +7,12 @@ export function listTodos(req, res){
 
 export function queryTodos(req,res){
     const id = Number(req.params.id);
-    const todo = getTodoById();
+    const todo = getTodoById(id);
 
-    if (!todo) return res.status(404).json({error:"todo not found", id});
+    if (!todo)
+    {
+        return res.status(404).json({error:"todo not found", id});
+    }
     res.json({todo});
 }
 

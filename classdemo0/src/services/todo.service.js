@@ -44,10 +44,10 @@ export function deleteTodoById(id){
 }
 
 export function getTodoById(id){
-    const todoIndex = todos.findIndex(t => t.id === id);
-    if(todoIndex === -1){
+    const todo = todos.find(t => t.id === id);
+    if(!todo){
         return null;
     }
 
-    return todoIndex;
+    return todo;
 }

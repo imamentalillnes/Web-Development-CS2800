@@ -13,7 +13,7 @@ export function queryTodos(req,res){
     res.json({todo});
 }
 
-export function createTodos(req, res){
+export function createTodo(req, res){
 
     try{
         const {task} = req.body;

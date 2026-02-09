@@ -1,53 +1,45 @@
 // SERVICE WILL NEVER HAVE ANYTHING 
 // RELATED TO HTTP CALLS OR RESPONSES
+import todoModels from "../models/todo.models.js";
 
-let nextId = 3;
-
-const todos = [
-    {id:1, task:"Try to have fun with express", done:false},
-    {id:2, task:"Buy eggs", done:false}
-]
-
-export function getAllTodos(){
-    return todos;
+function getTodosService(){
+    return todoModels.getAllTodos();
 }
 
-export function createTodos(task){
-
+function createTodoService(task){
     if(!task || typeof task !="string" || task.trim()===""){
-        // return res.status(400).json({error:"task is required. You should provide non-empty string"});
+    //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
         throw new error("invalid task");
     }
-
-    const todo = {id: nextId++, task:task.trim(), dont: false};
-    todos.push(todo);
-    return todo;
-
+    return todoModels.createTodos(task);
 }
 
-export function toggleTodoById(id){
-    const todo = todos.find(t => t.id === id);
-    if(!todo){
-        return null;
-    }
-    todo.done = !todo.done;
-    return todo;
+function toggleTodoByIdService(id){
+    // const todo = todos.find(t => t.id === id);
+    // if(!todo){
+    //     return null;
+    // }
+    return todoModels.toggleTodoById(id);
 }
 
-export function deleteTodoById(id){
-    const todoIndex = todos.findIndex(t => t.id === id);
-    if(todoIndex === -1){
-        return null;
-    }
 
-    return todos.splice(todoIndex, 1)[0];
+function deleteTodoByIdService(id){
+    
+    return todoModels.deleteTodoById(id);
 }
 
-export function getTodoById(id){
-    const todo = todos.find(t => t.id === id);
-    if(!todo){
-        return null;
-    }
-
-    return todo;
+function getTodoByIdService(id){
+    // const todo = todos.find(t => t.id === id);
+    // if(!todo){
+    //     return null;
+    // }
+    return todoModels.getTodoById(id);
 }
+
+export {
+    getTodosService,
+    createTodoService,
+    toggleTodoByIdService,
+    deleteTodoByIdService,
+    getTodoByIdService,
+};

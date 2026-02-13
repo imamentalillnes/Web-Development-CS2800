@@ -1,3 +1,11 @@
+import pool from "../db/conections.js";
+
+export async function getAllTodos(){
+    const [rows] = await pool.query("SELECT * FROM todos;")
+    return rows;
+
+}
+
 let nextId = 3;
 
 const todos = [
@@ -5,9 +13,9 @@ const todos = [
     {id:2, task:"Buy eggs", done:false}
 ]
 
-function getAllTodos(){
-    return todos;
-}
+// function getAllTodos(){
+//     return todos;
+// }
 
 function createTodos(task){
     // if(!task || typeof task !="string" || task.trim()===""){
@@ -61,7 +69,6 @@ function getTodoById(id){
 }
 
 export default{
-    getAllTodos,
     getTodoById,
     createTodos,
     toggleTodoById,

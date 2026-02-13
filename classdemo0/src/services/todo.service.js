@@ -2,8 +2,8 @@
 // RELATED TO HTTP CALLS OR RESPONSES
 import todoModels from "../models/todo.models.js";
 
-function getTodosService(){
-    return todoModels.getAllTodos();
+async function getTodosService(){
+    return await todoModels.getAllTodos();
 }
 
 function createTodoService(task){
@@ -37,7 +37,6 @@ function getTodoByIdService(id){
 }
 
 export {
-    getTodosService,
     createTodoService,
     toggleTodoByIdService,
     deleteTodoByIdService,

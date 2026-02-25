@@ -2,11 +2,11 @@
 // RELATED TO HTTP CALLS OR RESPONSES
 import todoModels from "../models/todo.models.js";
 
-async function getTodosService(){
+export async function getTodosService(){
     return await todoModels.getAllTodos();
 }
 
-function createTodoService(task){
+export async function createTodoService(task){
     if(!task || typeof task !="string" || task.trim()===""){
     //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
         throw new error("invalid task");
@@ -14,16 +14,16 @@ function createTodoService(task){
     return todoModels.createTodos(task);
 }
 
-function toggleTodoByIdService(id){
+export async function toggleTodoByIdService(id){
     // const todo = todos.find(t => t.id === id);
     // if(!todo){
     //     return null;
     // }
-    return todoModels.toggleTodoById(id);
+    return await todoModels.toggleTodoById(id);
 }
 
 
-function deleteTodoByIdService(id){
+export async function deleteTodoByIdService(id){
     
     return todoModels.deleteTodoById(id);
 }
@@ -37,8 +37,5 @@ function getTodoByIdService(id){
 }
 
 export {
-    createTodoService,
-    toggleTodoByIdService,
-    deleteTodoByIdService,
     getTodoByIdService,
 };

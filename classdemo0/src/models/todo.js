@@ -29,4 +29,4 @@ const todo = sequelize.define(
     }
 );
 
-export default todo;
+export default { todo };

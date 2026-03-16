@@ -4,7 +4,7 @@ import { signAccessToken } from "../utils/jwt.js"
 
 const SALT_ROUNDS = 10;
 
-export async function register({name, email, password}) {
+export async function register({name, email, password, role}) {
     const normalizeEmail = email.toLowerCase();
 
     const existing = await User.findOne({where: {user_email: normalizeEmail}});
@@ -17,12 +17,13 @@ export async function register({name, email, password}) {
     const user = await User.create({
         name,
         user_email: normalizeEmail,
-        passwordHash
+        user_password:passwordHash,
+        user_role: role
     });
 
     const token = signAccessToken( {sub: String(user.user_id), email: user_email})
 
-    return {ok:true, data:{token, user:{id: user.user_id, name: user.user_email}}}
+    return {ok:true, data:{token, user:{id: user.user_id, name: user.user_email, role: user.user_role}}}
 
 
 }
@@ -42,5 +43,5 @@ export async function login({email, password}) {
     }
 
     const token = signAccessToken({sub: String(user.user_id), email: user.user_email});
-    return {ok : true, data: {token, user:{id:user.user_id, name: user_name, email: user_email}}};
+    return {ok : true, data: {token, user:{id:user.user_id, name: user.user_name, email: user.user_email, role: user.user_role}}};
 }

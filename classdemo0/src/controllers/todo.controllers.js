@@ -1,7 +1,7 @@
 import{getTodosService, createTodoService, toggleTodoByIdService, deleteTodoByIdService, getTodoByIdService} from "../services/todo.service.js"
 
 export async function listTodos(req, res){
-    const todos = await getTodosService();
+    const todos = await getTodosService(req.user.id);
     res.json({count: todos.length, todos});
 }
 
@@ -16,11 +16,11 @@ export function queryTodos(req,res){
     res.json({todo});
 }
 
-export async function createTodo(req, res){
+export async function createUserTodo(req, res){
 
     try{
         const {task} = req.body;
-        const todo = await createTodoService(task);
+        const todo = await createUserTodoService(task);
 
         res.status(201).json({message:"Created", todo});
     } catch(err){

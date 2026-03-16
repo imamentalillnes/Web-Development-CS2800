@@ -2,16 +2,16 @@
 // RELATED TO HTTP CALLS OR RESPONSES
 import todoModels from "../models/todo.models.js";
 
-export async function getTodosService(){
-    return await todoModels.getAllTodos();
+export async function getTodosService(userId){
+    return await todo.findAll({ where : {userId}}, {order: [["id", "ASC"]]});
 }
 
-export async function createTodoService(task){
+export async function createUserTodoService(userId, task){
     if(!task || typeof task !="string" || task.trim()===""){
     //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
         throw new error("invalid task");
     }
-    return todoModels.createTodos(task);
+    return todoModels.createUserTodos(userId, task);
 }
 
 export async function toggleTodoByIdService(id){

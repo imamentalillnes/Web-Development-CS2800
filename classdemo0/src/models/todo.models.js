@@ -2,13 +2,13 @@ import pool from "../db/conections.js";
 
 import todo from "./todo.js";
 
-export async function getAllTodos(){
-    // const [rows] = await pool.query("SELECT * FROM todos;")
-    // return rows;
+// export async function getAllUserTodos(userId){
+//     // const [rows] = await pool.query("SELECT * FROM todos;")
+//     // return rows;
 
-    return await todo.findAll({order: [["id", "ASC"]]})
+//     return await todo.findAll({ where : {userId}}, {order: [["id", "ASC"]]})
 
-}
+// }
 
 let nextId = 3;
 
@@ -37,7 +37,7 @@ export async function createTodos(task){
     // );
     // return {id: result.insertId, task, completed:false};
 
-    return await todo.create({task});
+    return await todo.create({userId, task});
 }
 
 export async function toggleTodoById(id){

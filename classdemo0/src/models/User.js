@@ -22,9 +22,14 @@ const User = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
+        user_role:{
+            type: DataTypes.ENUM("admin", "staff", "userr"),
+            allowNull: false,
+            default: "user"
+        },
     },
     {
-        tableName: "tasks",
+        tableName: "users",
         timestamps: true,
         indexes: [{unique: true, field:["user_email"]}]
     }

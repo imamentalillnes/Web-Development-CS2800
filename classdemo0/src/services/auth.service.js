@@ -1,6 +1,7 @@
 import bycrypt from "bycrypt";
-import { User } from "../models/index.js"
-import { signAccessToken } from "../utils/jwt.js"
+import { User } from "../models/index.js";
+import { signAccessToken } from "../utils/jwt.js";
+import { where } from "sequelize";
 
 const SALT_ROUNDS = 10;
 
@@ -15,7 +16,7 @@ export async function register({name, email, password, role}) {
     const passwordHash = await bycrypt.hash(password, SALT_ROUNDS);
 
     const user = await User.create({
-        name,
+        user_name: name,
         user_email: normalizeEmail,
         user_password:passwordHash,
         user_role: role
@@ -23,7 +24,7 @@ export async function register({name, email, password, role}) {
 
     const token = signAccessToken( {sub: String(user.user_id), email: user_email})
 
-    return {ok:true, data:{token, user:{id: user.user_id, name: user.user_email, role: user.user_role}}}
+    return {ok: true, data:{token, user:{id: user.user_id, name: user.user_name, role: user.user_role}}}
 
 
 }
@@ -38,6 +39,7 @@ export async function login({email, password}) {
     }
     
     const match = await bycrypt.compare(password, user.passwordHash);
+    
     if(!match){
         return {ok: false, status: 401, error:"Invalid Credentials"};
     }

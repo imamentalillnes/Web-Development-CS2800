@@ -1,4 +1,4 @@
-import { Roouter, Router } from "express";
+import { Router } from "express";
 import * as adminController from "../controllers/admin.controller.js"
 import { requireAuth } from "../middleware/auth.middleware.js"
 import { requireRole } from "../middleware/role.middleware";
@@ -6,8 +6,8 @@ import { requireRole } from "../middleware/role.middleware";
 
 const router = Router();
 
-router.use(requireAuth);
-router.use(requireRole("admin"));
+// router.use(requireAuth);
+// router.use(requireRole("admin"));
 
 
 router.get("/todos", adminController.listAllTodos);

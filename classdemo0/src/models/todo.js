@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/sequelize.js";
 
-const todo = sequelize.define(
+const Todo = sequelize.define(
     "Todo",
     {
         task_id:{
@@ -29,4 +29,4 @@ const todo = sequelize.define(
     }
 );
 
-export default { todo };
+export default { Todo };

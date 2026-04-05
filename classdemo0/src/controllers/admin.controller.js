@@ -1,5 +1,6 @@
-import { User, Todo } from "../models/index.js";
+// import { User, Todo } from "../models/index.js";
 import * as adminTodoService from "../services/admin.service.js"
+import * as todoService from "../services/todo.service.js"
 
 export async function listAllTodos(req, res, next) {
     try {
@@ -12,14 +13,23 @@ export async function listAllTodos(req, res, next) {
 }
 
 
-export async function listAllUSers(req, res, next){
+export async function listAllUsers(req, res, next){
     try{
-        const users = await User.findAll({
-            attributes:["user_id", "user_name", "user_email", "user_role"]
-        })
+        const users = await adminTodoService.getAllUserService();
         return res.status(200).json({users});
     }
     catch(error){
         next(error);
+    }
+}
+
+export async function createTodo(req, res, next) {
+    try{
+        const {task} = req.body;
+        const todo = await todoService.createUserTodoService(1, task);
+        res.status(201).json({message:"Created", todo});
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
     }
 }

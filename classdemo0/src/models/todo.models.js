@@ -1,6 +1,6 @@
 import pool from "../db/conections.js";
 
-import todo from "./todo.js";
+import Todo from "./todo.js";
 
 // export async function getAllUserTodos(userId){
 //     // const [rows] = await pool.query("SELECT * FROM todos;")
@@ -21,7 +21,7 @@ const todos = [
 //     return todos;
 // }
 
-export async function createTodos(task){
+export async function createUserTodo(userId, task){
     // if(!task || typeof task !="string" || task.trim()===""){
     //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
     //     throw new error("invalid task");
@@ -37,56 +37,46 @@ export async function createTodos(task){
     // );
     // return {id: result.insertId, task, completed:false};
 
-    return await todo.create({userId, task});
+    return await Todo.create({user_Id: userId, tasks: task});
 }
 
 export async function toggleTodoById(id){
-    // const todo = todos.find(t => t.id === id);
-    // if(!todo){
-    //     return null;
-    // }
-    // todo.done = !todo.done;
-    // return todo;
-
-    const [result] = await pool.query(
-        "UPDATE todos SET completed = true, WHERE id = (?)", [id]
-    );
-    return result;
-}
-
-function deleteTodoById(id){
     const todo = todos.find(t => t.id === id);
     if(!todo){
         return null;
     }
+    todo.done= !todo.done;
+    return todo;
+}
 
+function deleteTodoById(id){
     const todoIndex = todos.findIndex(t => t.id === id);
 
     if(todoIndex === -1){
         return null;
     }
 
-    return todoIndex.splice(todo, 1)[0];
+    return todos.splice(id, 1)[0];
 }
 
-export async function getTodoById(id){
-    // const todo = todos.find(t => t.id === id);
-    // if(!todo){
-    //     return null;
-    // }
+// export async function getTodoById(id){
+//     // const todo = todos.find(t => t.id === id);
+//     // if(!todo){
+//     //     return null;
+//     // }
 
-    // const todoIndex = todos.findIndex(t => t.id === id);
+//     // const todoIndex = todos.findIndex(t => t.id === id);
 
-    // if(todoIndex === -1){
-    //     return null;
-    // }
+//     // if(todoIndex === -1){
+//     //     return null;
+//     // }
 
-    // return todo;
+//     // return todo;
 
-    return await todo.findByPk({id: id});
-}
+//     return await todo.findByPk({id: id});
+// }
 
 export default{
-    getTodoById,
+    toggleTodoById,
     deleteTodoById,
 }

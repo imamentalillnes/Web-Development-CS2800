@@ -1,6 +1,6 @@
 // SERVICE WILL NEVER HAVE ANYTHING 
 // RELATED TO HTTP CALLS OR RESPONSES
-import todoModels from "../models/todo.models.js";
+// import todoModels from "../models/todo.models.js";
 import { Todo } from "../models/index.js";
 import { getAllTodosService } from "./admin.service.js";
 

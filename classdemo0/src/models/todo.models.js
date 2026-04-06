@@ -1,4 +1,4 @@
-import pool from "../db/conections.js";
+import pool from "../db/connection.js";
 
 import Todo from "./todo.js";
 
@@ -76,7 +76,7 @@ function deleteTodoById(id){
 //     return await todo.findByPk({id: id});
 // }
 
-export default{
-    toggleTodoById,
-    deleteTodoById,
-}
+// export default{
+//     toggleTodoById,
+//     deleteTodoById,
+// }

@@ -7,8 +7,9 @@ import * as todoService from "../services/todo.service.js";
 
 export async function listTodos(req, res, next) {
   try {
+    // console.log("are you at listTodos?")
     const todos = await todoService.listTodos(req.user.user_id);
-    console.log(todos);
+    // console.log(todos);
     res.json({ count: todos.length, todos });
   } catch (err) {
     next(err);
@@ -18,8 +19,8 @@ export async function listTodos(req, res, next) {
 export async function createTodo(req, res, next) {
   try {
     const todo = await todoService.createUserTodoService(
-      // req.user.user_id,
-      1,
+      req.user.user_id,
+      // req.body.user_id,
       req.body.tasks,
     );
     return res.status(201).json({ todo });

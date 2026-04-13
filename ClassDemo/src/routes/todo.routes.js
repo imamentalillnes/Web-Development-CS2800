@@ -12,7 +12,7 @@ const router = Router();
 
 router.use(requireAuth);
 
-router.use(requireRole("admin", "staff", "users"));
+// router.use(requireRole("admin", "staff", "users"));
 
 
 router.get("/", todoController.listTodos);

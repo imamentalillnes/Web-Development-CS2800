@@ -11,10 +11,12 @@ import { getAllTodosService } from "./admin.service.js";
 // }
 
 export async function listTodos(user){
+    // console.log("User is " + user);
     if(user.role === "admin"){
         return await Todo.findAll({ where: {user_id}, order: [["task_id", "ASC"]]});
     }
 
+    // console.log("finding todos");
     return Todo.findAll({
         where: {user_id: user},
         order: [["createdAt", "ASC"]]
@@ -22,12 +24,12 @@ export async function listTodos(user){
 }
 
 export async function createUserTodoService(userId, task){
-    console.log("got to service")
+    // console.log("got to service")
     if(!task || typeof task !=="string" || task.trim()===""){
         // return res.status(400).json({error:"task is required. You should provide non-empty string"});
         throw new Error("Invalid task")
     }
-    console.log("completed service logic check")
+    // console.log("completed service logic check" + userId)
     return await ToDoModel.createUserTodo(userId, task);
 }
 

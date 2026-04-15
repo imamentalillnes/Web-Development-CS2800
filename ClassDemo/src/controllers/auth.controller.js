@@ -21,6 +21,32 @@ export async function login(req, res){
     return res.status(200).json(result.data);
 }
 
+export async function forgotPassword(req, res, next){
+    try{
+        const result = await authService.forgotPassword(req.body);
+        if(!result.ok){
+            return res.status(result.status).json({error: result.error});
+        }
+        return res.status(200).json(result.data);
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+export async function resetPassword(req, res, next){
+    try{
+        const result = await authService.resetPassword(req.body);
+        if(!result.ok){
+            return res.status(result.status).json({error: result.error});
+        }
+        return res.status(200).json(result.data);
+    }
+    catch(err){
+        next(err);
+    }
+}
+
 // TODO password reset
 // TODO Limit registration to "user" only from Normal UI 
 // TODO Registration for admin needs to be separate then the normal user
